@@ -9,6 +9,12 @@ import java.util.Set;
 @Entity
 public class Recipe {
 
+    @ManyToMany
+    @JoinTable(name = "recipe_category", //name of the join table
+            joinColumns = @JoinColumn(name = "recipe_id"), //from this way of the relationship we use recipe_id
+            inverseJoinColumns = @JoinColumn(name = "category_id")) //coming back we'll have category_id
+    private Set<Category> categories;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +38,8 @@ public class Recipe {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
+
+
 
     public Long getId() {
         return id;
